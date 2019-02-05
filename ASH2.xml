@@ -1,0 +1,110 @@
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" id="cell_C">
+
+
+<ComponentType name="ASH"
+                   extends="baseCell"
+                   description="ASH sensory neuron. Based on Mirzakhalili et al 2018 https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0201302">
+    
+    <Parameter name="G_SERCA" dimension="none"/> <!-- 5.78 uMs^-1 -->
+    <Parameter name="K_SERCA" dimension="none"/> <!-- 0.1 uM -->
+    <Parameter name="G_PMCA" dimension="none"/> <!-- 14.81 uMs^-1 -->
+    <Parameter name="K_PMCA" dimension="none"/> <!-- 0.60 uM -->
+    <Parameter name="G_TRPV" dimension="none"/> <!-- 0.03 s^-1 -->
+    <Parameter name="G_IPR" dimension="none"/> <!-- 0.30 s^-1 -->
+    <Parameter name="G_VGCC" dimension="none"/> <!-- 0.00 V^-1s^-1 -->
+    <Parameter name="K_P0" dimension="none"/> <!-- 11.77 - -->
+    <Parameter name="k_P0" dimension="none"/> <!-- 6.61 s^-1 -->
+    <Parameter name="k_P0_" dimension="none"/> <!-- 0.30 s^-1 -->
+    <Parameter name="k_P1" dimension="none"/> <!-- 0.44 s^-1 -->
+    <Parameter name="k_P1_" dimension="none"/> <!-- 0.29 s^-1 -->
+    <Parameter name="k_P2" dimension="none"/> <!-- 0.24 s^-1 -->
+    <Parameter name="k_P2_" dimension="none"/> <!-- 1.09 s^-1 -->
+    <Parameter name="k_O" dimension="none"/> <!-- 0.04 s^-1 -->
+    <Parameter name="k_O_" dimension="none"/> <!-- 0.05 s^-1 -->
+    <Parameter name="k_I" dimension="none"/> <!-- 0.01 s^-1 -->
+    <Parameter name="k_I_" dimension="none"/> <!-- 1.39 s^-1 -->
+    <Parameter name="k_p" dimension="none"/> <!-- 8.60 uMs^-1 -->
+    <Parameter name="k_p_" dimension="none"/> <!-- 3.63 s^-1 -->
+    <Parameter name="K1" dimension="none"/> <!-- 0.138 uM -->
+    <Parameter name="K2" dimension="none"/> <!-- 1.05 uM -->
+    <Parameter name="K3" dimension="none"/> <!-- 0.943 uM -->
+    <Parameter name="K4" dimension="none"/> <!-- 0.144 uM -->
+    <Parameter name="K5" dimension="none"/> <!-- 0.082 uM -->
+    <Parameter name="k2_" dimension="none"/> <!-- 0.21 s^-1 -->
+    <Parameter name="k4_" dimension="none"/> <!-- 0.029 s^-1 -->
+    <Parameter name="K_c" dimension="none"/> <!-- 0.23 uM -->
+    <Parameter name="K_P" dimension="none"/> <!-- 14.04 - -->
+    <Parameter name="K_P2" dimension="none"/> <!-- 14.04 - -->
+    <Parameter name="J_LeakER" dimension="none"/> <!-- 0.01 s^-1 - -->
+    <Parameter name="J_Leak" dimension="none"/> <!-- 0.39 s^-1 -->
+    <Parameter name="gamma" dimension="none"/> <!-- 5.40 - -->
+    <Parameter name="V_rest" dimension="none"/> <!-- -70.00 E -->
+    <Parameter name="extConcentration" dimension="none"/> <!-- 2000 uM -->
+
+
+    <Constant name="R" dimension="idealGasConstantDims" value="8.3144621 J_per_K_per_mol" description="TODO: Make this a global constant!"/>
+    <Constant name="zCa" dimension="none" value="2" description="TODO: Make this a global constant!"/>
+    <Constant name="F" dimension="charge_per_mole" value="96485.3 C_per_mol" description="TODO: Make this a global constant!"/>
+
+    <Exposure name="V" dimension="none"/>
+    <Exposure name="concentration" dimension="none"/>
+    <Exposure name="concentrationER" dimension="none"/>
+
+    <Dynamics>
+
+
+        <StateVariable name="concentration" exposure="concentration" dimension="concentration"/>
+        <StateVariable name="extConcentration" exposure="extConcentration" dimension="concentration"/>
+        
+        <TimeDerivative variable="concentration" value="J_IPR + J_LeakER - J_PMCA - J_SERCA + J_TRPV + J_VGCC + J_Leak"/>
+
+        <TimeDerivative variable="concentrationER" value="gamma * (J_SERCA - (J_IPR + J_LeakER))"/>
+
+        <TimeDerivative variable="O" value="k_O * P1 * (1 - O) - k_O_ * O"/>
+
+        <TimeDerivative variable="I" value="k_I * (1 - I) - k_I_ * P2 * I"/>
+
+        <TimeDerivative variable="P1" value="k_P1 * P0 - k_P1_ * P1"/>  
+
+        <TimeDerivative variable="P2" value="k_P2 * P0 / (P0 + K_P2) - k_P2_ * P2)"/>      
+
+        <TimeDerivative variable="P0" value="k_P0 * S / (S + K_P0) - k_P0_ * P0"/>
+
+        <TimeDerivative variable="y" value="theta1*(1-y)-theta2*y"/>
+
+        <TimeDerivative variable="theta1" value="k2_*concentration*((k42*K2*K1 + K4*p)/(K4*K2*(K1+p)))"/>
+
+        <TimeDerivative variable="theta2" value="k2_*((p+k42*K3)/(K3+p))"/>
+
+        <TimeDerivative variable="p" value="k_p * (P1/(1 + (K_p*P2)^4)) * (concentration^2 / (concentration^2 + K_c^2)) - k_p_ * p"/>
+
+
+        <DerivedVariable name="J_IPR" dimension="" value="G_IPR * O_IPR * (concentration - extConcentration)"/>
+        <DerivedVariable name="O_IPR" dimension="" value="((p*concentration*(1-y)) / (p+K1)*(concentration+K5))^3"/>
+        <DerivedVariable name="J_LeakER" dimension="" value=""/>
+        <DerivedVariable name="J_PMCA" dimension="" value="G_PMCA * concentration^2 / (concentration^2 + K_PMCA)"/>
+        <DerivedVariable name="J_SERCA" dimension="" value="G_SERCA * concentration^2 / (concentration^2 + K_SERCA)"/>
+        <DerivedVariable name="J_TRPV" dimension="" value="G_TRPV * O * I * (extConcentration - concentration"/>
+        <DerivedVariable name="J_Leak" dimension="" value=""/>
+        <DerivedVariable name="gamma" dimension="" value=""/>
+
+        <DerivedVariable name="J_VGCC" dimension="" value="G_VGCC * m_inf^2 * V * ((concentration - extConcentration*e^(-zCa*F*V/(R*T))) / (1 - e^(-zCa*F*V/(R*T))))"/>
+        <DerivedVariable name="m_inf" dimension="" value="alpha / (alpha + betha)"/>
+        <DerivedVariable name="alpha" dimension="" value="1.6 / (1 + e^(-0.072*(V-5)))"/>
+        <DerivedVariable name="betha" dimension="" value="(0.02 * (V - 1.31)) / (e^(V-1.31)/5.36 - 1)"/>
+
+        <DerivedVariable name="V" dimension="voltage" value="alpha_*(V_max - V) - betha_(V - V_rest)"/>
+        <DerivedVariable name="alpha_" dimension="" value="(-26 * concentration + 4) / (e^(-26*concentration+4) - 1)"/>
+        <DerivedVariable name="betha_" dimension="" value="(260 * concentration - 20) / (e^(13*concentration-1) - 1)"/>
+
+        <OnStart>
+            <StateAssignment variable="concentration" value="initialConcentration"/>
+            <StateAssignment variable="extConcentration" value="initialExtConcentration"/>
+        </OnStart>
+        
+        <!--<OnCondition test="concentration .lt. 0">
+            <StateAssignment variable="concentration" value="0"/>
+        </OnCondition>-->
+    </Dynamics>
+</ComponentType>
+

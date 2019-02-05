@@ -1,0 +1,60 @@
+<Lems>
+
+
+    <!-- Specify which component to run -->
+    <Target component="sim1"/>
+
+    <!-- Include core NeuroML2 ComponentType definitions -->
+    <Include file="Cells.xml"/>
+    <Include file="Networks.xml"/>
+    <Include file="Simulation.xml"/>
+
+        <Include file="LEMS_ASH_Input.xml"/>
+    <Include file="ASH.nml"/>
+    <Include file="ASH_Stim.net.nml"/>
+
+
+
+    <ASH_Cell id="ASH">
+        <notes>ASH cell...</notes>
+    </ASH_Cell>
+
+    <Simulation id="sim1" length="70s" step="1ms" target="net1">
+
+        <Display id="d" title="ASH" xmin="-500" xmax="60500" ymin="-1" ymax="15" timeScale="1ms">
+            <Line id="J_PMCA" timeScale="1ms" quantity="ASH_pop/0/ASH/J_PMCA" scale="1 uM" color="#000055"/>
+            <Line id="J_SERCA" timeScale="1ms" quantity="ASH_pop/0/ASH/J_SERCA" scale="1 uM" color="#550000"/>
+            <Line id="J_TRPV" timeScale="1ms" quantity="ASH_pop/0/ASH/J_TRPV" scale="1 uM" color="#FFFF00"/>
+            <Line id="J_IPR" timeScale="1ms" quantity="ASH_pop/0/ASH/J_IPR" scale="1 uM" color="#8A2BE2"/>
+            <Line id="S" timeScale="1ms" quantity="ASH_pop/0/ASH/S" scale="1 M" color="#FF5500"/>
+        </Display>
+    
+        <Display id="d11" title="Ca concentration (mM)" xmin="-500" xmax="60500" ymin="-1" ymax="15" timeScale="1ms">
+            <Line id="Ca concentration" timeScale="1ms" quantity="ASH_pop/0/ASH/caConc" scale="1 uM" color="#000000"/>
+        </Display>
+
+        <Display id="d12" title="Ca concentration ER (mM)" xmin="-500" xmax="60500" ymin="-1" ymax="15" timeScale="1ms">
+            <Line id="Ca concentration ER" timeScale="1ms" quantity="ASH_pop/0/ASH/concentrationER" scale="1 uM" color="#000000"/>
+        </Display>
+
+
+        <!--<Display id="d18" title="ASH V (mV)" xmin="-500" xmax="20500" ymin="-80" ymax="80" timeScale="1ms">
+            <Line id="ASH V" timeScale="1ms" quantity="ASH_pop/0/ASH/V" scale="1 mV" color="#000000"/>
+        </Display>-->
+
+        <!--<Display id="d17" title="Ca concentration J_VGCC (mM)" xmin="-500" xmax="20500" ymin="-1e-8" ymax="15e-8" timeScale="1ms">
+            <Line id="Ca concentration J_VGCC" timeScale="1ms" quantity="ASH_pop/0/ASH/J_VGCC" scale="1 mM" color="#000000"/>
+        </Display>-->
+        <!--<Display id="d18" title="ASH V (mV)" xmin="-500" xmax="20500" ymin="-80" ymax="80" timeScale="1ms">
+            <Line id="ASH V" timeScale="1ms" quantity="ASH_pop/0/ASH/V" scale="1 mV" color="#000000"/>
+        </Display>-->
+
+        <!--<Display id="d2" title="Ca concentration (mM)" xmin="-500" xmax="20500" ymin="-1e-8" ymax="15e-8" timeScale="1ms">
+            <Line id="Ca concentration" timeScale="1ms" quantity="mc1/ASH/caConc" scale="1 mM" color="#000000"/>
+        </Display>-->
+
+        
+    </Simulation>
+
+
+</Lems>

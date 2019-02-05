@@ -1,0 +1,15 @@
+<Lems xmlns="http://www.neuroml.org/lems/0.7.4"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.neuroml.org/lems/0.7.4 ../../LEMS/Schemas/LEMS/LEMS_v0.7.4.xsd">
+
+    <Include file="NeuroMLCoreDimensions.xml"/>
+
+    <Dimension name="concentration_per_time" l="-3" n="1" t="-1"/>
+    <Dimension name="per_voltage_per_time" m="-1" l="-2" t="2" i="1" />
+    <Dimension name="per_concentration" l="3" n="-1"  />
+
+    <Unit symbol="uM_per_s" dimension="concentration_per_time" power="-6"/>
+    <Unit symbol="per_V_per_s" dimension="per_voltage_per_time" power="0"/>
+    <Unit symbol="uM" dimension="concentration" power="-6"/>
+    <Unit symbol="per_M" dimension="per_concentration" power="0"/>
+</Lems>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2  https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" 
+         id="ASH_stim">
+
+
+    <include href="ASH.nml"/>
+
+
+    <pulseGeneratorConcentration id="offsetToMin75" delay="0ms" duration="60s" amplitude="0 M" />
+
+    <pulseGeneratorConcentration id="pulseGen0" delay="10s" duration="30s" amplitude="1 M" />
+
+
+    <network id="net1">
+        <population id="mc1" component="ASH" size="1" />
+
+        <population id="ASH_pop" component="ASH" type="populationList">
+            <instance id="0" />
+        </population>
+
+        
+        <inputList id="offset" component="offsetToMin75" population="ASH_pop">
+            <input id="0" target="../ASH_pop/0/ASH" destination="synapses"/>
+        </inputList>
+        
+        
+        <inputList id="pulse0" component="pulseGen0" population="ASH_pop">
+            <input id="0" target="../ASH_pop/0/ASH" destination="synapses"/>
+        </inputList>
+
+
+        
+        
+
+    </network>
+
+</neuroml>

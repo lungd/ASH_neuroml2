@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" id="cell_ASH">
+
+
+    
+
+
+    <ComponentType name="ASH_Cell"
+                       extends="baseCell"
+                       description="ASH sensory neuron. Based on Mirzakhalili et al 2018 https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0201302">
+
+        <Attachments name="synapses" type="basePointConcentration"/>
+        <EventPort name="spike" direction="out" description="Spike event"/>
+
+        <Exposure name="S" dimension="concentration"/>
+
+       
+
+        <Constant name="G_SERCA" dimension="concentration_per_time" value="5.869921479445393300 uM_per_s" /> <!-- 5.78 uMs^-1 -->
+        <Constant name="K_SERCA" dimension="concentration" value="0.0999 uM"/> <!-- 0.1 uM -->
+        <Constant name="G_PMCA" dimension="concentration_per_time" value="14.81 uM_per_s"/> <!-- 14.81 uMs^-1 -->
+        <Constant name="K_PMCA" dimension="concentration" value="0.60 uM"/> <!-- 0.60 uM -->
+        <Constant name="G_TRPV" dimension="per_time" value="0.03 per_s"/> <!-- 0.03 s^-1 -->
+        <Constant name="G_IPR" dimension="per_time" value="0.30 per_s"/> <!-- 0.30 s^-1 -->
+        <Constant name="G_VGCC" dimension="per_voltage_per_time" value="0.000001 per_V_per_s"/> <!-- 0.00 V^-1s^-1 -->
+        <Constant name="K_P0" dimension="none" value="11.77"/> <!-- 11.77 - -->
+        <Constant name="k_P0" dimension="per_time" value="6.61 per_s"/> <!-- 6.61 s^-1 -->
+        <Constant name="k_P0_" dimension="per_time" value="0.30 per_s"/> <!-- 0.30 s^-1 -->
+        <Constant name="k_P1" dimension="per_time" value="0.44 per_s"/> <!-- 0.44 s^-1 -->
+        <Constant name="k_P1_" dimension="per_time" value="0.29 per_s"/> <!-- 0.29 s^-1 -->
+        <Constant name="k_P2" dimension="per_time" value="0.24 per_s"/> <!-- 0.24 s^-1 -->
+        <Constant name="k_P2_" dimension="per_time" value="1.09 per_s"/> <!-- 1.09 s^-1 -->
+        <Constant name="k_O" dimension="per_time" value="0.04 per_s" description="Forward rate constant for O state"/> <!-- 0.04 s^-1 -->
+        <Constant name="k_O_" dimension="per_time" value="0.05 per_s" description="Backward rate constant for O state"/> <!-- 0.05 s^-1 -->
+        <Constant name="k_I" dimension="per_time" value="0.01 per_s" description="Forward rate constant for I state"/> <!-- 0.01 s^-1 -->
+        <Constant name="k_I_" dimension="per_time" value="1.39 per_s" description="Backward rate constant for I state"/> <!-- 1.39 s^-1 -->
+        <Constant name="k_p" dimension="concentration_per_time" value="8.60 uM_per_s"/> <!-- 8.60 uMs^-1 -->
+        <Constant name="k_p_" dimension="per_time" value="3.63 per_s"/> <!-- 3.63 s^-1 -->
+        <Constant name="K1" dimension="concentration" value="0.13 uM"/> <!-- 0.138 uM -->
+        <Constant name="K2" dimension="concentration" value="1.05 uM"/> <!-- 1.05 uM -->
+        <Constant name="K3" dimension="concentration" value="0.943 uM"/> <!-- 0.943 uM -->
+        <Constant name="K4" dimension="concentration" value="0.145 uM"/> <!-- 0.144 uM -->
+        <Constant name="K5" dimension="concentration" value="0.082 uM"/> <!-- 0.082 uM -->
+        <Constant name="k2_" dimension="per_time" value="0.21 per_s"/> <!-- 0.21 s^-1 -->
+        <Constant name="k4_" dimension="per_time" value="0.029 per_s"/> <!-- 0.029 s^-1 -->
+        <Constant name="K_c" dimension="concentration" value="0.23 uM"/> <!-- 0.23 uM -->
+        <Constant name="K_p" dimension="none" value="14.04"/> <!-- 14.04 - -->
+        <Constant name="K_P2" dimension="none" value="14.04"/> <!-- 14.04, or 1.7....? - -->
+        <Constant name="J_LeakER" dimension="concentration_per_time" value="0.01 uM_per_s"/> <!-- 0.01 s^-1 - -->
+        <Constant name="J_Leak" dimension="concentration_per_time" value="0.39 uM_per_s"/> <!-- 0.39 s^-1 -->
+        <Constant name="gamma" dimension="none" value="5.40"/> <!-- 5.40 - -->
+        <Constant name="V_rest" dimension="voltage" value="-70.00 V"/> <!-- -70.00 E -->
+        <Constant name="V_max" dimension="voltage" value="70.00 V"/> <!-- 70.00 E -->
+        <Constant name="extConcentrationInit" dimension="concentration" value="2000 uM"/> <!-- 2000 uM - or 220? -->
+        <Constant name="caConcInit" dimension="concentration" value="0.1 uM"/> <!-- 2000 uM -->
+        <Constant name="caConcERInit" dimension="concentration" value="1 uM"/> <!-- 2000 uM -->
+
+
+        <Constant name="alpha_mid" dimension="voltage" value="-5 mV"/>
+        <Constant name="betha_mid" dimension="voltage" value="-1.31 mV"/>
+        <Constant name="alpha_mid_" dimension="concentration" value="4 uM"/>
+        <Constant name="betha_mid_" dimension="concentration" value="-1 uM"/>
+
+        <Constant name="VOLT" dimension="voltage" value="1 V"/>
+        <Constant name="M" dimension="concentration" value="1 M"/>
+        <Constant name="SEC" dimension="time" value="1 s"/>
+
+        <Constant name="UNIT_PER_V" dimension="per_voltage" value="1 per_V" />
+        <Constant name="UNIT_PER_mV" dimension="per_voltage" value="1 per_mV" />
+        <Constant name="UNIT_PER_S" dimension="per_time" value="1 per_s" />
+        <Constant name="UNIT_PER_mS" dimension="per_time" value="1 per_ms" />
+        <Constant name="UNIT_PER_CONC" dimension="per_concentration" value="1 per_M" />
+        <Constant name="CONC" dimension="concentration" value="1 M" />
+
+
+        <!--<Parameter name="S" dimension="concentration" />--> <!-- M stimulus  -->
+
+
+        <Constant name="T" dimension="temperature" value="20 degC" />
+        <Constant name="R" dimension="idealGasConstantDims" value="8.3144621 J_per_K_per_mol" description="TODO: Make this a global constant!"/>
+        <Constant name="zCa" dimension="none" value="2" description="TODO: Make this a global constant!"/>
+        <Constant name="F" dimension="charge_per_mole" value="96485.3 C_per_mol" description="TODO: Make this a global constant!"/>
+
+        <Exposure name="caConc" dimension="concentration"/>
+        <Exposure name="concentrationER" dimension="concentration"/>
+        <Exposure name="extConcentration" dimension="concentration"/>
+        <Exposure name="V" dimension="voltage" description=""/>
+        <Exposure name="O" dimension="none" description=""/>
+        <Exposure name="I" dimension="none" description=""/>
+        <Exposure name="P1" dimension="none" description=""/>
+        <Exposure name="P2" dimension="none" description=""/>
+        <Exposure name="P0" dimension="none" description=""/>
+        <Exposure name="y" dimension="none" description=""/>
+        <Exposure name="theta1" dimension="none" description=""/>
+        <Exposure name="theta2" dimension="none" description=""/>
+        <Exposure name="p" dimension="none" description=""/>
+        <Exposure name="O_IPR" dimension="none" description=""/>
+        <!--<Exposure name="m_inf" dimension="none" description=""/>
+        <Exposure name="alpha" dimension="none" description=""/>
+        <Exposure name="betha" dimension="none" description=""/>
+        <Exposure name="alpha_" dimension="none" description=""/>
+        <Exposure name="betha_" dimension="none" description=""/>-->
+        <Exposure name="J_SERCA" dimension="concentration" />
+        <Exposure name="FRET" dimension="none" />
+        
+
+        <Dynamics>
+
+            <DerivedVariable name="k42" dimension="none" value="k4_ / k2_"/> 
+
+            <StateVariable name="caConc" exposure="caConc" dimension="concentration"/>
+            <StateVariable name="concentrationER" exposure="concentrationER" dimension="concentration"/>
+            <StateVariable name="extConcentration" exposure="extConcentration" dimension="concentration"/>
+            <StateVariable name="V" dimension="voltage" exposure="V" description=""/>
+            <StateVariable name="O" dimension="none" exposure="O" description=""/>
+            <StateVariable name="I" dimension="none" exposure="I" description=""/>
+            <StateVariable name="P1" dimension="none" exposure="P1" description=""/>
+            <StateVariable name="P2" dimension="none" exposure="P2" description=""/>
+            <StateVariable name="P0" dimension="none" exposure="P0" description=""/>
+            <StateVariable name="y" dimension="none" exposure="y" description=""/>
+            <StateVariable name="theta1" dimension="none" exposure="theta1" description=""/>
+            <StateVariable name="theta2" dimension="none" exposure="theta2" description=""/>
+            <StateVariable name="p" dimension="concentration" exposure="p" description=""/>
+
+            <StateVariable name="O_IPR" dimension="none" exposure="O_IPR" description=""/>
+            <!--<StateVariable name="m_inf" dimension="none" exposure="m_inf" description=""/>
+            <StateVariable name="alpha" dimension="none" exposure="alpha" description=""/>
+            <StateVariable name="betha" dimension="none" exposure="betha" description=""/>
+            <StateVariable name="alpha_" dimension="none" exposure="alpha_" description=""/>
+            <StateVariable name="betha_" dimension="none" exposure="betha_" description=""/>-->
+            
+            
+            
+            <!--<TimeDerivative variable="caConc" value="J_IPR + J_LeakER - J_PMCA - J_SERCA + J_TRPV + J_VGCC + J_Leak"/>-->
+            <TimeDerivative variable="caConc" value="J_IPR + J_LeakER - J_PMCA - J_SERCA + J_TRPV + J_Leak"/>
+
+            <TimeDerivative variable="concentrationER" value="gamma * (J_SERCA - (J_IPR + J_LeakER))"/>
+
+            <TimeDerivative variable="O" value="k_O * P1 * (1 - O) - k_O_ * O" description="Probabilities of TRPV channels to be activated"/>
+
+            <TimeDerivative variable="I" value="k_I * (1 - I) - k_I_ * P2 * I" description="Probabilities of TRPV channels to be inactivated"/>
+
+            <TimeDerivative variable="P1" value="k_P1 * P0 - k_P1_ * P1" description="P1 and P2 represent two molecular players that control in/activation of TRPV channels"/>  
+
+            <TimeDerivative variable="P2" value="k_P2 * P0 / (P0 + K_P2) - k_P2_ * P2)"/>      
+
+            <TimeDerivative variable="P0" value="k_P0 * (S / (S + K_P0*CONC)) - k_P0_ * P0"/>
+
+            <TimeDerivative variable="y" value="(theta1*(1-y) - theta2*y)/(10^3*SEC)"/>
+
+            <TimeDerivative variable="theta1" value="k2_*caConc*((k42*K2*K1 + K4*p)/(K4*K2*(K1+p)))"/>
+
+            <TimeDerivative variable="theta2" value="k2_*((p+k42*K3)/(K3+p))"/>
+
+            <TimeDerivative variable="p" value="k_p * (P1/(1 + (K_p*P2)^4)) * (caConc^2 / (caConc^2 + K_c^2)) - k_p_ * p"/>
+
+
+            <DerivedVariable name="S" dimension="concentration" exposure="S" select="synapses[*]/S" reduce="add" />
+
+            <DerivedVariable name="J_IPR" dimension="concentration_per_time" value="G_IPR * O_IPR * (-caConc + concentrationER)" description="Ca2+ influx through IP3 receptors (from ER to cell)"/>
+            <DerivedVariable name="O_IPR" dimension="none" value="((p*caConc*(1-y)) / ((p+K1)*(caConc+K5)))^3" description="Probability of IP3 receptors (IPRs) to be open"/>
+            <DerivedVariable name="J_PMCA" dimension="concentration_per_time" value="G_PMCA * caConc^2 / (caConc^2 + K_PMCA*10^-6*CONC)" description="CA2+ Pump (from cell to extracellular space)"/> <!-- K_PMCA*10^-9*CONC -->
+            <DerivedVariable name="J_SERCA" dimension="concentration_per_time" value="G_SERCA * caConc^2 / (caConc^2 + K_SERCA*10^-6*CONC)" description="CA2+ Pump (from cell to ER)"/>
+            <DerivedVariable name="J_TRPV" dimension="concentration_per_time" value="G_TRPV * O * I * (extConcentration - caConc)" description="Transient
+receptor potential-vallinoid (TRPV) Ca2+ channels. (from extracellular space to cell."/>
+
+            <!--<DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="G_VGCC * m_inf^2 * V * ((caConc - extConcentration*exp(-zCa*F*V/(R*T))) / (1 - exp(-zCa*F*V/(R*T))))"/>
+            <DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="G_VGCC * m_inf^2 * V * ((caConc - extConcentration*exp(-zCa*F*V/(R*T))) / (1 - exp(-zCa*F*V/(R*T))))"/>
+-->
+            <!--<DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="0*CONC*UNIT_PER_S"/>-->
+            <!--<DerivedVariable name="m_inf" dimension="none" value="alpha / (alpha + betha)"/>
+            <DerivedVariable name="alpha" dimension="none" value="1.6 / (1 + exp(-0.072*((V-(5/UNIT_PER_V))) * 1*UNIT_PER_mV)))"/>
+            <DerivedVariable name="betha" dimension="none" value="(0.02 * (V - (1.31 / UNIT_PER_V)) * UNIT_PER_V) / (exp((V-(1.31 / UNIT_PER_V)) * UNIT_PER_V)/5.36 - 1)"/>
+
+            <DerivedVariable name="V" dimension="voltage" value="alpha_*(V_max - V) - betha_*(V - V_rest)"/>
+            <DerivedVariable name="alpha_" dimension="none" value="(-26 * (caConc + 4 * (CONC/1000))*UNIT_PER_CONC) / (exp(-26*(caConc+4 * (CONC/1000))*UNIT_PER_CONC) - 1)"/>
+            <DerivedVariable name="betha_" dimension="none" value="(260*caConc - 20 * (CONC/1000))*UNIT_PER_CONC / (exp(13*(caConc-1 * (CONC/1000))*UNIT_PER_CONC) - 1)"/>-->
+
+       
+
+            
+            <OnStart>
+                <StateAssignment variable="caConc" value="caConcInit"/>
+                <StateAssignment variable="concentrationER" value="caConcERInit"/>
+                <StateAssignment variable="extConcentration" value="extConcentrationInit"/>
+                <StateAssignment variable="V" value="V_rest"/>
+            </OnStart>
+            
+            <OnCondition test="caConc .lt. 0">
+                <StateAssignment variable="caConc" value="0"/>
+            </OnCondition>
+            <OnCondition test="concentrationER .lt. 0">
+                <StateAssignment variable="concentrationER" value="0"/>
+            </OnCondition>
+
+            <OnCondition test="V .gt. V_max">
+                <EventOut port="spike"/>
+            </OnCondition>
+        </Dynamics>
+    </ComponentType>
+
+
+    <ComponentType name="basePointConcentration"
+                   description="Base type for all ComponentTypes which produce a current _i (with dimension current)"
+                   extends="baseStandalone">
+        
+        <Exposure name="S" dimension="concentration" description="The total (time varying) current produced by this ComponentType"/>
+
+    </ComponentType>
+
+
+    <ComponentType name="pulseGeneratorConcentration" extends="basePointConcentration"
+                   description="Generates a constant current pulse of a certain _amplitude for a specified _duration after a _delay"> <!-- Note: a synpase also extends basePointCurrent -->
+
+        <Parameter name="delay" dimension="time" description="Delay before change in current. Current is zero  prior to this."/>
+        <Parameter name="duration" dimension="time" description="Duration for holding current at amplitude. Current is zero after delay + duration."/>
+        <Parameter name="amplitude" dimension="concentration" description="Amplitude of current pulse"/>
+
+        <!--TODO: remove! Only required as EventConnection is used in explicitInput to
+        connect inputs to cells. Events aren't passed! ... -->
+        <EventPort name="in" direction="in" description="Note this is not used here. Will be removed in future"/>
+
+        <Dynamics>
+
+            <StateVariable name="S" exposure="S" dimension="concentration"/>
+
+            <OnEvent port="in"><!--TODO: remove, see above...
+            <StateAssignment variable="i" value="0"/>-->
+            </OnEvent>
+
+            <OnCondition test="t .lt. delay">
+                <StateAssignment variable="S" value="0"/>
+            </OnCondition>
+
+            <OnCondition test="t .geq. delay .and. t .lt. duration + delay">
+                <StateAssignment variable="S" value="amplitude"/>
+            </OnCondition>
+
+            <OnCondition test="t .geq. duration + delay">
+                <StateAssignment variable="S" value="0"/>
+            </OnCondition>
+
+        </Dynamics>
+    </ComponentType>
+    
+
+
+</neuroml>
