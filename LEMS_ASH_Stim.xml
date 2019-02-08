@@ -21,19 +21,21 @@
 
     <Simulation id="sim1" length="70s" step="1ms" target="net1">
 
-        <Display id="d" title="ASH" xmin="-500" xmax="60500" ymin="-1" ymax="15" timeScale="1ms">
-            <Line id="J_PMCA" timeScale="1ms" quantity="ASH_pop/0/ASH/J_PMCA" scale="1 uM" color="#000055"/>
-            <Line id="J_SERCA" timeScale="1ms" quantity="ASH_pop/0/ASH/J_SERCA" scale="1 uM" color="#550000"/>
+        <Display id="d" title="ASH" xmin="-500" xmax="55000" ymin="0" ymax="6" timeScale="1ms">
+            <Line id="J_PMCA" timeScale="1ms" quantity="ASH_pop/0/ASH/J_PMCA" scale="1 uM" color="#0000FF"/>
+            <Line id="J_SERCA" timeScale="1ms" quantity="ASH_pop/0/ASH/J_SERCA" scale="1 uM" color="#B5651D"/>
             <Line id="J_TRPV" timeScale="1ms" quantity="ASH_pop/0/ASH/J_TRPV" scale="1 uM" color="#FFFF00"/>
             <Line id="J_IPR" timeScale="1ms" quantity="ASH_pop/0/ASH/J_IPR" scale="1 uM" color="#8A2BE2"/>
-            <Line id="S" timeScale="1ms" quantity="ASH_pop/0/ASH/S" scale="1 M" color="#FF5500"/>
+            <Line id="J_LeakER" timeScale="1ms" quantity="ASH_pop/0/ASH/J_LeakER" scale="1 uM" color="#00FFFF"/>
+            <Line id="J_Leak" timeScale="1ms" quantity="ASH_pop/0/ASH/J_Leak" scale="1 uM" color="#008888"/>
+            <Line id="S" timeScale="1ms" quantity="ASH_pop/0/ASH/S" scale="1 M" color="#FF0000"/>
         </Display>
     
-        <Display id="d11" title="Ca concentration (mM)" xmin="-500" xmax="60500" ymin="-1" ymax="15" timeScale="1ms">
+        <Display id="d11" title="Ca concentration (mM)" xmin="-500" xmax="55000" ymin="0" ymax="5" timeScale="1ms">
             <Line id="Ca concentration" timeScale="1ms" quantity="ASH_pop/0/ASH/caConc" scale="1 uM" color="#000000"/>
         </Display>
 
-        <Display id="d12" title="Ca concentration ER (mM)" xmin="-500" xmax="60500" ymin="-1" ymax="15" timeScale="1ms">
+        <Display id="d12" title="Ca concentration ER (mM)" xmin="-500" xmax="55000" ymin="-1" ymax="300" timeScale="1ms">
             <Line id="Ca concentration ER" timeScale="1ms" quantity="ASH_pop/0/ASH/concentrationER" scale="1 uM" color="#000000"/>
         </Display>
 
