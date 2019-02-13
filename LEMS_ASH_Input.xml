@@ -10,6 +10,7 @@
 
     <Unit symbol="uM_per_s" dimension="concentration_per_time" power="-6"/>
     <Unit symbol="per_V_per_s" dimension="per_voltage_per_time" power="0"/>
+    <Unit symbol="per_mV_per_s" dimension="per_voltage_per_time" power="-3"/>
     <Unit symbol="uM" dimension="concentration" power="-6"/>
     <Unit symbol="per_M" dimension="per_concentration" power="0"/>
 </Lems>

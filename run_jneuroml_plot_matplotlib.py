@@ -8,17 +8,17 @@ from pyneuroml import pynml
 
 example_lems_file = 'LEMS_ASH_Stim.xml'
 
-results1 = pynml.run_lems_with_jneuroml(example_lems_file, nogui=True, load_saved_data=True)
+results1 = pynml.run_lems_with_jneuroml_neuron(example_lems_file, nogui=False, load_saved_data=True)
 
-
+print results1
 
 ####################################################################
 #   Convert LEMS/NeuroML2 file to NEURON with jNeuroML & run
 
 
-if not '-noneuron' in sys.argv:  # To allow skipping of this for ease of testing
+#if not '-noneuron' in sys.argv:  # To allow skipping of this for ease of testing
 
-    results2 = pynml.run_lems_with_jneuroml_neuron(example_lems_file, nogui=True, load_saved_data=True)
+#    results2 = pynml.run_lems_with_jneuroml_neuron(example_lems_file, nogui=True, load_saved_data=True)
 
 
 

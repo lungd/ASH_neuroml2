@@ -22,7 +22,7 @@
         <Constant name="K_PMCA" dimension="concentration" value="0.60 uM"/> <!-- 0.60 uM -->
         <Constant name="G_TRPV" dimension="per_time" value="0.038204 per_s"/> <!-- 0.03 s^-1 -->
         <Constant name="G_IPR" dimension="per_time" value="0.30412 per_s"/> <!-- 0.30 s^-1 -->
-        <Constant name="G_VGCC" dimension="per_voltage_per_time" value="0.000001 per_V_per_s"/> <!-- 0.00 V^-1s^-1 -->
+        <Constant name="G_VGCC" dimension="per_voltage_per_time" value="0.0000045241 per_V_per_s"/> <!-- 0.00 V^-1s^-1 -->
         <Constant name="K_P0" dimension="none" value="11.777"/> <!-- 11.77 - -->
         <Constant name="k_P0" dimension="per_time" value="6.6165 per_s"/> <!-- 6.61 s^-1 -->
         <Constant name="k_P0_" dimension="per_time" value="0.30788 per_s"/> <!-- 0.30 s^-1 -->
@@ -49,8 +49,8 @@
         <Constant name="G_LeakER" dimension="per_time" value="0.013347 per_s"/> <!-- 0.01 or 0.013347 s^-1 - -->
         <Constant name="J_Leak" dimension="concentration_per_time" value="0.399 uM_per_s"/> <!-- 0.39 s^-1 -->
         <Constant name="gamma" dimension="none" value="5.40"/> <!-- 5.40 - -->
-        <Constant name="V_rest" dimension="voltage" value="-70.00 V"/> <!-- -70.00 E -->
-        <Constant name="V_max" dimension="voltage" value="70.00 V"/> <!-- 70.00 E -->
+        <Constant name="V_rest" dimension="voltage" value="-64.4 mV"/> <!-- -70.00 E -->
+        <Constant name="V_max" dimension="voltage" value="20.00 mV"/> <!-- 70.00 E -->
         <Constant name="extConcentrationInit" dimension="concentration" value="2000 uM"/> <!-- 2000 uM - or 220? -->
         <Constant name="caConcInit" dimension="concentration" value="0.1 uM"/> <!--  -->
         <Constant name="caConcERInit" dimension="concentration" value="220 uM"/> <!--  -->
@@ -70,21 +70,25 @@
         <Constant name="UNIT_PER_S" dimension="per_time" value="1 per_s" />
         <Constant name="UNIT_PER_mS" dimension="per_time" value="1 per_ms" />
         <Constant name="UNIT_PER_CONC" dimension="per_concentration" value="1 per_M" />
-        <Constant name="CONC" dimension="concentration" value="1 M" />
+        <Constant name="CONC" dimension="concentration" value="0.001 M" />
 
 
         <!--<Parameter name="S" dimension="concentration" />--> <!-- M stimulus  -->
 
 
-        <Constant name="T" dimension="temperature" value="20 degC" />
-        <Constant name="R" dimension="idealGasConstantDims" value="8.3144621 J_per_K_per_mol" description="TODO: Make this a global constant!"/>
+        <!--<Constant name="T" dimension="temperature" value="293.1 K" />--> <!-- 19.95 degC -->
+        <!--<Constant name="R" dimension="idealGasConstantDims" value="8.3144621 J_per_K_per_mol" description="TODO: Make this a global constant!"/>-->
         <Constant name="zCa" dimension="none" value="2" description="TODO: Make this a global constant!"/>
-        <Constant name="F" dimension="charge_per_mole" value="96485.3 C_per_mol" description="TODO: Make this a global constant!"/>
+        <!--<Constant name="F" dimension="charge_per_mole" value="96485.3 C_per_mol" description="TODO: Make this a global constant!"/>-->
+        
+        <Constant name="RT" dimension="none" value="2437" description=""/>
+        <Constant name="F" dimension="none" value="96485.3" description=""/>
 
         <Exposure name="caConc" dimension="concentration"/>
         <Exposure name="concentrationER" dimension="concentration"/>
         <Exposure name="extConcentration" dimension="concentration"/>
         <Exposure name="V" dimension="voltage" description=""/>
+        <Exposure name="DV" dimension="voltage" description=""/>
         <Exposure name="O" dimension="none" description=""/>
         <Exposure name="I" dimension="none" description=""/>
         <Exposure name="P1" dimension="none" description=""/>
@@ -95,12 +99,15 @@
         <Exposure name="theta2" dimension="none" description=""/>
         <Exposure name="p" dimension="none" description=""/>
         <Exposure name="O_IPR" dimension="none" description=""/>
-        <!--<Exposure name="m_inf" dimension="none" description=""/>
+        <Exposure name="m_inf" dimension="none" description=""/>
+        <Exposure name="J_VGCC_S" dimension="none" />
         <Exposure name="alpha" dimension="none" description=""/>
         <Exposure name="betha" dimension="none" description=""/>
         <Exposure name="alpha_" dimension="none" description=""/>
-        <Exposure name="betha_" dimension="none" description=""/>-->
-        <Exposure name="FRET" dimension="none" />
+        <Exposure name="betha_" dimension="none" description=""/>
+
+        <Exposure name="VVVVVVVVVVVVVVVVVVVVVVV" dimension="none" />
+        <Exposure name="CCCCCCCCCCCCCCCCCCCCCC" dimension="none" />
         
 
         <Dynamics>
@@ -111,6 +118,7 @@
             <StateVariable name="concentrationER" exposure="concentrationER" dimension="concentration"/>
             <StateVariable name="extConcentration" exposure="extConcentration" dimension="concentration"/>
             <StateVariable name="V" dimension="voltage" exposure="V" description=""/>
+            <StateVariable name="DV" dimension="voltage" exposure="DV" description=""/>
             <StateVariable name="O" dimension="none" exposure="O" description=""/>
             <StateVariable name="I" dimension="none" exposure="I" description=""/>
             <StateVariable name="P1" dimension="none" exposure="P1" description=""/>
@@ -120,13 +128,14 @@
             <StateVariable name="theta1" dimension="none" exposure="theta1" description=""/>
             <StateVariable name="theta2" dimension="none" exposure="theta2" description=""/>
             <StateVariable name="p" dimension="concentration" exposure="p" description=""/>
-
             <StateVariable name="O_IPR" dimension="none" exposure="O_IPR" description=""/>
-            <!--<StateVariable name="m_inf" dimension="none" exposure="m_inf" description=""/>
+
+            <StateVariable name="m_inf" dimension="none" exposure="m_inf" description=""/>
+            <StateVariable name="J_VGCC_S" dimension="none" exposure="J_VGCC_S" description=""/>
             <StateVariable name="alpha" dimension="none" exposure="alpha" description=""/>
             <StateVariable name="betha" dimension="none" exposure="betha" description=""/>
             <StateVariable name="alpha_" dimension="none" exposure="alpha_" description=""/>
-            <StateVariable name="betha_" dimension="none" exposure="betha_" description=""/>-->
+            <StateVariable name="betha_" dimension="none" exposure="betha_" description=""/>
             
             
             
@@ -143,15 +152,17 @@
 
             <TimeDerivative variable="P2" value="k_P2 * P0 / (P0 + K_P2) - k_P2_ * P2"/>      
 
-            <TimeDerivative variable="P0" value="k_P0 * (S / (S + K_P0*CONC)) - k_P0_ * P0"/>
+            <TimeDerivative variable="P0" value="k_P0 * (S / (S + K_P0*CONC*10^3)) - k_P0_ * P0"/>
 
-            <TimeDerivative variable="y" value="( theta1 * (1 - y) - theta2 * y ) / ( 10^3*SEC )"/>
+            <TimeDerivative variable="y" value="( theta1 * (1 - y) - theta2 * y ) / ( 10^0*SEC )"/>
 
             <TimeDerivative variable="theta1" value="k2_ * caConc * ( (k42 * K2 * K1 + K4 * p) / (K4 * K2 * (K1 + p)) )"/>
 
             <TimeDerivative variable="theta2" value="k2_ * ( (p + k42 * K3) / (K3 + p) )"/>
 
             <TimeDerivative variable="p" value="k_p * (P1 / ( 1 + (K_p * P2)^4)) * (caConc^2 / (caConc^2 + K_c^2)) - k_p_ * p"/>
+
+            <TimeDerivative variable="DV" value="(alpha_*(V_max - DV) - betha_*(DV - V_rest))"/>
 
 
             <DerivedVariable name="J_LeakER" dimension="concentration_per_time" value="G_LeakER * (-caConc + concentrationER)" description="" />
@@ -167,17 +178,22 @@ receptor potential-vallinoid (TRPV) Ca2+ channels. (from extracellular space to 
             <!--<DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="G_VGCC * m_inf^2 * V * ((caConc - extConcentration*exp(-zCa*F*V/(R*T))) / (1 - exp(-zCa*F*V/(R*T))))"/>
             <DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="G_VGCC * m_inf^2 * V * ((caConc - extConcentration*exp(-zCa*F*V/(R*T))) / (1 - exp(-zCa*F*V/(R*T))))"/>
 -->
-            <!--<DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="0*CONC*UNIT_PER_S"/>-->
-            <!--<DerivedVariable name="m_inf" dimension="none" value="alpha / (alpha + betha)"/>
-            <DerivedVariable name="alpha" dimension="none" value="1.6 / (1 + exp(-0.072*((V-(5/UNIT_PER_V))) * 1*UNIT_PER_mV)))"/>
-            <DerivedVariable name="betha" dimension="none" value="(0.02 * (V - (1.31 / UNIT_PER_V)) * UNIT_PER_V) / (exp((V-(1.31 / UNIT_PER_V)) * UNIT_PER_V)/5.36 - 1)"/>
-
-            <DerivedVariable name="V" dimension="voltage" value="alpha_*(V_max - V) - betha_*(V - V_rest)"/>
-            <DerivedVariable name="alpha_" dimension="none" value="(-26 * (caConc + 4 * (CONC/1000))*UNIT_PER_CONC) / (exp(-26*(caConc+4 * (CONC/1000))*UNIT_PER_CONC) - 1)"/>
-            <DerivedVariable name="betha_" dimension="none" value="(260*caConc - 20 * (CONC/1000))*UNIT_PER_CONC / (exp(13*(caConc-1 * (CONC/1000))*UNIT_PER_CONC) - 1)"/>-->
-
+            <!--<DerivedVariable name="alpha_" dimension="none" exposure="alpha_" value="(26 * (caConc/CONC - 4/26)) / (1-exp(-26*(caConc/CONC - 4/26)))"/>
+            <DerivedVariable name="betha_" dimension="none" exposure="betha_" value="(-260*(caConc/CONC - 2/26)) / (1 - exp(0.5*26*(caConc/CONC - 2/26)))"/>-->
        
+            <DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="G_VGCC * ((m_inf)^2) * DV * (-caConc*J_VGCC_S + extConcentration) / (1 - J_VGCC_S)"/>
 
+            <DerivedVariable name="VVVVVVVVVVVVVVVVVVVVVVV" dimension="none" exposure="VVVVVVVVVVVVVVVVVVVVVVV" value="(V/VOLT)" />
+            <DerivedVariable name="CCCCCCCCCCCCCCCCCCCCCC" dimension="none" exposure="CCCCCCCCCCCCCCCCCCCCCC" value="(caConc/CONC*10^6)" />
+
+            <DerivedVariable name="J_VGCC_S" dimension="none" exposure="J_VGCC_S" value="exp(-zCa*F*(DV/VOLT)/RT*10^-3)" />
+            <DerivedVariable name="m_inf" dimension="none" exposure="m_inf" value="(alpha / (alpha + betha))"/>
+            <DerivedVariable name="alpha" dimension="none" exposure="alpha" value="1.6 / (1 + exp(-0.072*(DV/VOLT-5)) )"/>
+            <DerivedVariable name="betha" dimension="none" exposure="betha" value="(0.02 * (DV/VOLT - 1.31)) / (exp((DV/VOLT-1.31)/5.36) - 1)"/>
+
+            <DerivedVariable name="V" dimension="voltage" exposure="V" value="(alpha_*(V_max - V) - betha_*(V - V_rest))*10^-3"/>
+            <DerivedVariable name="alpha_" dimension="none" exposure="alpha_" value="((26 * (caConc/CONC*10^6 - 4/26)) / (1 - exp(-26*(caConc/CONC*10^6 - 4/26))))"/>
+            <DerivedVariable name="betha_" dimension="none" exposure="betha_" value="(-260 * (caConc/CONC*10^6 - 2/26) / (1 - exp(13*(caConc/CONC*10^6 - 2/26))))"/>
             
             <OnStart>
                 <StateAssignment variable="caConc" value="caConcInit"/>
@@ -186,6 +202,7 @@ receptor potential-vallinoid (TRPV) Ca2+ channels. (from extracellular space to 
                 <StateAssignment variable="I" value="1"/>
                 <StateAssignment variable="y" value="0.40816"/>
                 <StateAssignment variable="V" value="V_rest"/>
+                <StateAssignment variable="DV" value="V_rest"/>
             </OnStart>
             
             <OnCondition test="caConc .lt. 0">
