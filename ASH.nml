@@ -140,7 +140,7 @@
             
             
             <!--<TimeDerivative variable="caConc" value="J_IPR + J_LeakER - J_PMCA - J_SERCA + J_TRPV + J_VGCC + J_Leak"/>-->
-            <TimeDerivative variable="caConc" value="J_IPR + J_LeakER - J_PMCA - J_SERCA + J_TRPV + J_Leak"/>
+            <TimeDerivative variable="caConc" value="J_IPR + J_LeakER - J_PMCA - J_SERCA + J_TRPV + J_Leak + J_VGCC"/>
 
             <TimeDerivative variable="concentrationER" value="gamma * (J_SERCA - (J_IPR + J_LeakER))"/>
 
@@ -163,7 +163,8 @@
             <TimeDerivative variable="p" value="k_p * (P1 / ( 1 + (K_p * P2)^4)) * (caConc^2 / (caConc^2 + K_c^2)) - k_p_ * p"/>
 
             <TimeDerivative variable="DV" value="(alpha_*(V_max - DV) - betha_*(DV - V_rest))"/>
-
+            <!--<TimeDerivative variable="alpha" value="1.6 / (1 + exp(-0.072*(DV*/VOLT-5)) )"/>
+            <TimeDerivative variable="betha" value="(0.02 * (DV/VOLT - 1.31)) / (exp((DV/VOLT-1.31)/5.36) - 1)"/>-->
 
             <DerivedVariable name="J_LeakER" dimension="concentration_per_time" value="G_LeakER * (-caConc + concentrationER)" description="" />
             <DerivedVariable name="S" dimension="concentration" exposure="S" select="synapses[*]/S" reduce="add" />
@@ -181,15 +182,15 @@ receptor potential-vallinoid (TRPV) Ca2+ channels. (from extracellular space to 
             <!--<DerivedVariable name="alpha_" dimension="none" exposure="alpha_" value="(26 * (caConc/CONC - 4/26)) / (1-exp(-26*(caConc/CONC - 4/26)))"/>
             <DerivedVariable name="betha_" dimension="none" exposure="betha_" value="(-260*(caConc/CONC - 2/26)) / (1 - exp(0.5*26*(caConc/CONC - 2/26)))"/>-->
        
-            <DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="G_VGCC * ((m_inf)^2) * DV * (-caConc*J_VGCC_S + extConcentration) / (1 - J_VGCC_S)"/>
+            <DerivedVariable name="J_VGCC" dimension="concentration_per_time" value="(G_VGCC * ((m_inf)^2) * DV*10^3 * (-caConc*J_VGCC_S*10^-3 + extConcentration) / (1 - J_VGCC_S*10^-3))"/>
 
             <DerivedVariable name="VVVVVVVVVVVVVVVVVVVVVVV" dimension="none" exposure="VVVVVVVVVVVVVVVVVVVVVVV" value="(V/VOLT)" />
             <DerivedVariable name="CCCCCCCCCCCCCCCCCCCCCC" dimension="none" exposure="CCCCCCCCCCCCCCCCCCCCCC" value="(caConc/CONC*10^6)" />
 
-            <DerivedVariable name="J_VGCC_S" dimension="none" exposure="J_VGCC_S" value="exp(-zCa*F*(DV/VOLT)/RT*10^-3)" />
+            <DerivedVariable name="J_VGCC_S" dimension="none" exposure="J_VGCC_S" value="exp(-zCa*F*(DV*10^3/VOLT)/RT*10^-3)" />
             <DerivedVariable name="m_inf" dimension="none" exposure="m_inf" value="(alpha / (alpha + betha))"/>
-            <DerivedVariable name="alpha" dimension="none" exposure="alpha" value="1.6 / (1 + exp(-0.072*(DV/VOLT-5)) )"/>
-            <DerivedVariable name="betha" dimension="none" exposure="betha" value="(0.02 * (DV/VOLT - 1.31)) / (exp((DV/VOLT-1.31)/5.36) - 1)"/>
+            <DerivedVariable name="alpha" dimension="none" exposure="alpha" value="1.6 / (1 + exp(-0.072*(DV*10^3/VOLT-5)) )"/>
+            <DerivedVariable name="betha" dimension="none" exposure="betha" value="(0.02 * (DV*10^3/VOLT - 1.31)) / (exp((DV*10^3/VOLT-1.31)/5.36) - 1)"/>
 
             <DerivedVariable name="V" dimension="voltage" exposure="V" value="(alpha_*(V_max - V) - betha_*(V - V_rest))*10^-3"/>
             <DerivedVariable name="alpha_" dimension="none" exposure="alpha_" value="((26 * (caConc/CONC*10^6 - 4/26)) / (1 - exp(-26*(caConc/CONC*10^6 - 4/26))))"/>
