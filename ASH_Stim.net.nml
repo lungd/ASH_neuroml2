@@ -6,6 +6,7 @@
 
 
     <include href="ASH.nml"/>
+    <include href="LEMS_ASH_Input.xml"/>
 
 
     <pulseGeneratorConcentration id="offsetToMin75" delay="0ms" duration="60s" amplitude="0 M" />
@@ -14,8 +15,6 @@
 
 
     <network id="net1">
-        <population id="mc1" component="ASH" size="1" />
-
         <population id="ASH_pop" component="ASH" type="populationList">
             <instance id="0" />
         </population>
@@ -29,11 +28,6 @@
         <inputList id="pulse0" component="pulseGen0" population="ASH_pop">
             <input id="0" target="../ASH_pop/0/ASH" destination="synapses"/>
         </inputList>
-
-
-        
-        
-
     </network>
 
 </neuroml>

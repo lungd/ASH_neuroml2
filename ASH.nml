@@ -89,6 +89,7 @@
         <Exposure name="extConcentration" dimension="concentration"/>
         <Exposure name="V" dimension="voltage" description=""/>
         <Exposure name="DV" dimension="voltage" description=""/>
+        <Exposure name="v" dimension="voltage" description=""/>
         <Exposure name="O" dimension="none" description=""/>
         <Exposure name="I" dimension="none" description=""/>
         <Exposure name="P1" dimension="none" description=""/>
@@ -119,6 +120,7 @@
             <StateVariable name="extConcentration" exposure="extConcentration" dimension="concentration"/>
             <StateVariable name="V" dimension="voltage" exposure="V" description=""/>
             <StateVariable name="DV" dimension="voltage" exposure="DV" description=""/>
+            <StateVariable name="v" dimension="voltage" exposure="v" description=""/>
             <StateVariable name="O" dimension="none" exposure="O" description=""/>
             <StateVariable name="I" dimension="none" exposure="I" description=""/>
             <StateVariable name="P1" dimension="none" exposure="P1" description=""/>
@@ -163,6 +165,7 @@
             <TimeDerivative variable="p" value="k_p * (P1 / ( 1 + (K_p * P2)^4)) * (caConc^2 / (caConc^2 + K_c^2)) - k_p_ * p"/>
 
             <TimeDerivative variable="DV" value="(alpha_*(V_max - DV) - betha_*(DV - V_rest))"/>
+            <TimeDerivative variable="v" value="(alpha_*(V_max - v) - betha_*(v - V_rest))"/>
             <!--<TimeDerivative variable="alpha" value="1.6 / (1 + exp(-0.072*(DV*/VOLT-5)) )"/>
             <TimeDerivative variable="betha" value="(0.02 * (DV/VOLT - 1.31)) / (exp((DV/VOLT-1.31)/5.36) - 1)"/>-->
 

@@ -9,7 +9,7 @@
     <Include file="Networks.xml"/>
     <Include file="Simulation.xml"/>
 
-        <Include file="LEMS_ASH_Input.xml"/>
+    <Include file="LEMS_ASH_Input.xml"/>
     <Include file="ASH.nml"/>
     <Include file="ASH_Stim.net.nml"/>
 
@@ -56,7 +56,36 @@
             <Line id="Ca concentration" timeScale="1ms" quantity="mc1/ASH/caConc" scale="1 mM" color="#000000"/>
         </Display>-->
 
-        
+        <OutputFile id="caConc" fileName="ASH_CaConc.dat">
+            <OutputColumn id="caConc" quantity="ASH_pop/0/ASH/caConc"/>
+        </OutputFile>        
+        <OutputFile id="v" fileName="ASH_V.dat">
+            <OutputColumn id="v" quantity="ASH_pop/0/ASH/v"/>
+        </OutputFile>  
+        <OutputFile id="PMCA" fileName="ASH_PMCA.dat">
+            <OutputColumn id="PMCA" quantity="ASH_pop/0/ASH/J_PMCA"/>
+        </OutputFile>
+        <OutputFile id="SERCA" fileName="ASH_SERCA.dat">
+            <OutputColumn id="SERCA" quantity="ASH_pop/0/ASH/J_SERCA"/>
+        </OutputFile> 
+        <OutputFile id="TRPV" fileName="ASH_TRPV.dat">
+            <OutputColumn id="TRPV" quantity="ASH_pop/0/ASH/J_TRPV"/>
+        </OutputFile>
+        <OutputFile id="IPR" fileName="ASH_IPR.dat">
+            <OutputColumn id="IPR" quantity="ASH_pop/0/ASH/J_IPR"/>
+        </OutputFile>
+        <OutputFile id="LeakER" fileName="ASH_LeakER.dat">
+            <OutputColumn id="LeakER" quantity="ASH_pop/0/ASH/J_LeakER"/>
+        </OutputFile>
+        <OutputFile id="VGCC" fileName="ASH_VGCC.dat">
+            <OutputColumn id="VGCC" quantity="ASH_pop/0/ASH/J_VGCC"/>
+        </OutputFile>
+        <OutputFile id="Stimulus" fileName="ASH_Stimulus.dat">
+            <OutputColumn id="Stimulus" quantity="ASH_pop/0/ASH/S"/>
+        </OutputFile>
+        <OutputFile id="caConcER" fileName="ASH_caConcER.dat">
+            <OutputColumn id="Stimulus" quantity="ASH_pop/0/ASH/concentrationER"/>
+        </OutputFile>
     </Simulation>
 
 
