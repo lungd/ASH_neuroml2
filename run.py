@@ -117,7 +117,7 @@ def main():
     lems_file = 'LEMS_ASH_Stim.xml'
         
     #simulator = 'jNeuroML_NEURON'
-    simulator = 'jNeuroML_NEURON'
+    simulator = 'jNeuroML'
     directory = '.'
     save = False
     save_image_full_dir='.'
